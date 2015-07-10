@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDetalleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDetalleLabel_cantidad}" for="cantidad" />
+                    <h:inputText id="cantidad" value="#{detalleController.selected.cantidad}" title="#{bundle.CreateDetalleTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateDetalleRequiredMessage_cantidad}"/>
+                    <h:outputLabel value="#{bundle.CreateDetalleLabel_total}" for="total" />
+                    <h:inputText id="total" value="#{detalleController.selected.total}" title="#{bundle.CreateDetalleTitle_total}" required="true" requiredMessage="#{bundle.CreateDetalleRequiredMessage_total}"/>
+                    <h:outputLabel value="#{bundle.CreateDetalleLabel_idDetalle}" for="idDetalle" />
+                    <h:inputText id="idDetalle" value="#{detalleController.selected.idDetalle}" title="#{bundle.CreateDetalleTitle_idDetalle}" required="true" requiredMessage="#{bundle.CreateDetalleRequiredMessage_idDetalle}"/>
+                    <h:outputLabel value="#{bundle.CreateDetalleLabel_idProducto}" for="idProducto" />
+                    <h:selectOneMenu id="idProducto" value="#{detalleController.selected.idProducto}" title="#{bundle.CreateDetalleTitle_idProducto}" required="true" requiredMessage="#{bundle.CreateDetalleRequiredMessage_idProducto}">
+                        <f:selectItems value="#{productoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDetalleLabel_idPedido}" for="idPedido" />
+                    <h:selectOneMenu id="idPedido" value="#{detalleController.selected.idPedido}" title="#{bundle.CreateDetalleTitle_idPedido}" required="true" requiredMessage="#{bundle.CreateDetalleRequiredMessage_idPedido}">
+                        <f:selectItems value="#{pedidoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{detalleController.create}" value="#{bundle.CreateDetalleSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{detalleController.prepareList}" value="#{bundle.CreateDetalleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDetalleIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

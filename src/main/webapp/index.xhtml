@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define  name="left">
+            <p:link outcome="/paginas/cliente/List" value="Clientes"/>
+            <p:link outcome="/paginas/categoria/List" value="Categorias"/>
+            <p:link outcome="/paginas/pedido/List" value="Pedidos"/>
+            <p:link outcome="/paginas/producto/List" value="Productos"/>
+        </ui:define>
+        <ui:define name="top">
+            
+        </ui:define>
+        <ui:define name="body">
+            <!--<p:button outcome="/paginas/administrador/List" value="Show All Administrador Items"/>-->
+            <!--<br />-->
+            <p:button outcome="/paginas/categoria/List" value="Show All Categoria Items"/>
+            <br />
+            <p:button outcome="/paginas/cliente/List" value="Show All Cliente Items"/>
+            <br />
+            <p:button outcome="/paginas/detalle/List" value="Show All Detalle Items"/>
+            <br />
+            <p:button outcome="/paginas/factura/List" value="Show All Factura Items"/>
+            <br />
+            <p:button outcome="/paginas/imagen/List" value="Show All Imagen Items"/>
+            <br />
+            <p:button outcome="/paginas/pedido/List" value="Show All Pedido Items"/>
+            <br />
+            <p:button outcome="/paginas/producto/List" value="Show All Producto Items"/>
+        </ui:define>
+    </ui:composition>
+
+
+
+
+
+
+
+
+
+</html>
+

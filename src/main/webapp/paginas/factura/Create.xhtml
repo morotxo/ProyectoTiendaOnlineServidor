@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFacturaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFacturaLabel_idFactura}" for="idFactura" />
+                    <h:inputText id="idFactura" value="#{facturaController.selected.idFactura}" title="#{bundle.CreateFacturaTitle_idFactura}" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_idFactura}"/>
+                    <h:outputLabel value="#{bundle.CreateFacturaLabel_preciototal}" for="preciototal" />
+                    <h:inputText id="preciototal" value="#{facturaController.selected.preciototal}" title="#{bundle.CreateFacturaTitle_preciototal}" required="true" requiredMessage="#{bundle.CreateFacturaRequiredMessage_preciototal}"/>
+                    <h:outputLabel value="#{bundle.CreateFacturaLabel_estado}" for="estado" />
+                    <h:inputText id="estado" value="#{facturaController.selected.estado}" title="#{bundle.CreateFacturaTitle_estado}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{facturaController.create}" value="#{bundle.CreateFacturaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{facturaController.prepareList}" value="#{bundle.CreateFacturaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFacturaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

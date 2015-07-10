@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="top"></ui:define>
+        <ui:define name="left">
+            <h:form>
+                <h:link outcome="/index" value="#{bundle.ViewPedidoIndexLink}"/>
+                <h:commandLink action="#{pedidoController.destroyAndView}" value="#{bundle.ViewPedidoDestroyLink}"/>
+                <h:link outcome="Edit" value="#{bundle.ViewPedidoEditLink}"/>
+                <h:commandLink action="#{pedidoController.prepareCreate}" value="#{bundle.ViewPedidoCreateLink}" />
+                <h:commandLink action="#{pedidoController.prepareList}" value="#{bundle.ViewPedidoShowAllLink}"/>
+            </h:form>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h3>Cliente</h3>
+                <h:panelGrid columns="6" cellpadding="4" cellspacing="0">
+                    <h:outputText  value="#{bundle.ViewClienteLabel_idCliente}"/>
+                    <h:outputText style="border:solid 0px" value="#{pedidoController.cliente.idCliente}" title="#{bundle.ViewClienteTitle_idCliente}"/>
+                    <h:outputText value="#{bundle.ViewClienteLabel_email}"/>
+                    <h:outputText  value="#{pedidoController.cliente.email}" title="#{bundle.ViewClienteTitle_email}"/>
+                    <h:outputText value="#{bundle.ViewClienteLabel_telefono}"/>
+                    <h:outputText  value="#{pedidoController.cliente.telefono}" title="#{bundle.ViewClienteTitle_telefono}"/>
+                    <h:outputText value="#{bundle.ViewClienteLabel_ciudad}"/>
+                    <h:outputText  value="#{pedidoController.cliente.ciudad}" title="#{bundle.ViewClienteTitle_ciudad}"/>
+                    <h:outputText value="#{bundle.ViewClienteLabel_pais}"/>
+                    <h:outputText  value="#{pedidoController.cliente.pais}" title="#{bundle.ViewClienteTitle_pais}"/>
+                    <h:outputText value="#{bundle.ViewClienteLabel_nombre}"/>
+                    <h:outputText  value="#{pedidoController.cliente.nombre}" title="#{bundle.ViewClienteTitle_nombre}"/>
+                    <h:outputText value="#{bundle.ViewClienteLabel_apellido}"/>
+                    <h:outputText  value="#{pedidoController.cliente.apellido}" title="#{bundle.ViewClienteTitle_apellido}"/>
+                    <h:outputText value="#{bundle.ViewClienteLabel_estado}"/>
+                    <h:outputText  value="#{clienteController.selected.estado}" title="#{bundle.ViewClienteTitle_estado}"/>
+                    <h:outputText value=""/><h:outputText value=""/><h:outputText value=""/><h:outputText value=""/><h:outputText value=""/><h:outputText value=""/><h:outputText value=""/><h:outputText value=""/><h:outputText value=""/><h:outputText value=""/><h:outputText value=""/>
+                    <h:outputText value=""/><h:outputText value=""/><h:outputText value=""/>
+                    <h:outputText  value="#{bundle.ViewPedidoLabel_idPedido}"/>
+                    <h:outputText  value="#{pedidoController.selected.idPedido}" title="#{bundle.ViewPedidoTitle_idPedido}"/>
+                    <h:outputText value="#{bundle.ViewPedidoLabel_fecha}"/>
+                    <h:outputText  value="#{pedidoController.selected.fecha}" title="#{bundle.ViewPedidoTitle_fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewPedidoLabel_formapago}"/>
+                    <h:outputText value="#{pedidoController.selected.formapago}" title="#{bundle.ViewPedidoTitle_formapago}"/>
+                    <h:outputText value="#{bundle.ViewPedidoLabel_estado}"/>
+                    <h:outputText  value="#{pedidoController.selected.estado}" title="#{bundle.ViewPedidoTitle_estado}"/>
+                    <h:outputText value="#{bundle.ViewPedidoLabel_idcliente}"/>
+                    <h:outputText  value="#{pedidoController.selected.idcliente}" title="#{bundle.ViewPedidoTitle_idcliente}"/>
+                    <h:outputText value="#{bundle.ViewPedidoLabel_idFactura}"/>
+                    <h:outputText  value="#{pedidoController.selected.idFactura}" title="#{bundle.ViewPedidoTitle_idFactura}"/>
+                </h:panelGrid>
+            </h:form>
+            <h:form>
+            <p:dataTable value="#{pedidoController.listadetalles}" var="item" >
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDetalleTitle_cantidad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidad}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDetalleTitle_total}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.total}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDetalleTitle_idDetalle}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idDetalle}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDetalleTitle_idProducto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idProducto}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListDetalleTitle_idPedido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idPedido}"/>
+                </p:column>
+            </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

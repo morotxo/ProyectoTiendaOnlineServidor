@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAdministradorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="left">
+            <h:form>
+            <h:link outcome="/index" value="#{bundle.ListProductoIndexLink}"/>
+            <h:commandLink action="#{administradorController.prepareList}" value="#{bundle.CreateAdministradorShowAllLink}" immediate="true"/>
+            <h:commandLink action="#{administradorController.create}" value="#{bundle.CreateAdministradorSaveLink}" />
+
+            </h:form>
+
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_idadmin}" for="idadmin" />
+                    <h:inputText id="idadmin" value="#{administradorController.selected.idadmin}" title="#{bundle.CreateAdministradorTitle_idadmin}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_idadmin}"/>
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{administradorController.selected.nombre}" title="#{bundle.CreateAdministradorTitle_nombre}" />
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_apellido}" for="apellido" />
+                    <h:inputText id="apellido" value="#{administradorController.selected.apellido}" title="#{bundle.CreateAdministradorTitle_apellido}" />
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_telefono}" for="telefono" />
+                    <h:inputText id="telefono" value="#{administradorController.selected.telefono}" title="#{bundle.CreateAdministradorTitle_telefono}" />
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{administradorController.selected.email}" title="#{bundle.CreateAdministradorTitle_email}" />
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_password}" for="password" />
+                    <h:inputText id="password" value="#{administradorController.selected.password}" title="#{bundle.CreateAdministradorTitle_password}" />
+                    <h:outputLabel value="#{bundle.CreateAdministradorLabel_estado}" for="estado" />
+                    <h:inputText id="estado" value="#{administradorController.selected.estado}" title="#{bundle.CreateAdministradorTitle_estado}" required="true" requiredMessage="#{bundle.CreateAdministradorRequiredMessage_estado}"/>
+                </h:panelGrid>
+                <br />
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

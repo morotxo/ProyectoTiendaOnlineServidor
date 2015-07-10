@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="top">
+        </ui:define>
+        
+        <ui:define name="left">
+            <h:form>
+                <h:link outcome="/index" value="#{bundle.ListProductoIndexLink}"/>
+                <h:commandLink action="#{productoController.prepareCreate}" value="#{bundle.ListProductoCreateLink}"/>
+            </h:form>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <!--<h:outputText escape="true" value="#{bundle.ListProductoEmpty}" rendered="#{productoController.items.rowCount == 0}"/>-->
+                <h:panelGroup>
+                    <h:outputText value="#{productoController.pagination.pageFirstItem + 1}..#{productoController.pagination.pageLastItem + 1}/#{productoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{productoController.previous}" value="#{bundle.Previous} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{productoController.next}" value="#{bundle.Next} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:inputText id="precio" value="#{productoController.busqueda}" title="Busqueda" />
+                   
+                    <p:commandButton value="Buscar" update="busqueda" action="#{productoController.buscar}"  />   
+                    <p:dataTable id="busqueda" value="#{productoController.items}" 
+                                 var="item" 
+                                 selectionMode="single"
+                                 selection="#{productoController.selectedProducto}"
+                                 rowKey="#{item.idProducto}"
+                                 style="border:solid 1px">
+                        <p:column sortBy="#{item.idProducto}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_idProducto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProducto}"/>
+                        </p:column>
+                        <p:column  style="text-align: center; width:405px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.precio}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_precio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.precio}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.marca}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_marca}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.marca}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.stock}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_stock}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.stock}"/>
+                        </p:column>
+                        <p:column  sortBy="#{item.estado}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_estado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_idCategoria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCategoria}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <p:commandButton  icon="ui-icon-zoomin" action="#{productoController.prepareView}" />
+                            <p:commandButton icon="ui-icon-pencil" action="#{productoController.prepareEdit}" />
+                            <p:commandButton icon="ui-icon-minusthick" update="busqueda" action="#{productoController.destroy}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+<!--                <h:form id="ArchivoListForm">
+                <p:fileUpload id="subirArchivo"  mode="advanced" dragDropSupport="false" 
+                              multiple="true" update="messages" sizeLimit="1000000" fileLimit="5" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+
+                <p:growl id="messages" showDetail="true" />
+                </h:form>-->
+            
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

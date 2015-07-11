@@ -21,23 +21,28 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <!--<h:outputText escape="true" value="#{bundle.ListProductoEmpty}" rendered="#{productoController.items.rowCount == 0}"/>-->
                 <h:panelGroup>
-                    <h:outputText value="#{productoController.pagination.pageFirstItem + 1}..#{productoController.pagination.pageLastItem + 1}/#{productoController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{productoController.previous}" value="#{bundle.Previous} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{productoController.next}" value="#{bundle.Next} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasNextPage}"/>&nbsp;
-                    <h:inputText id="precio" value="#{productoController.busqueda}" title="Busqueda" />
-                   
-                    <p:commandButton value="Buscar" update="busqueda" action="#{productoController.buscar}"  />   
+                    <p:growl id="messages" showDetail="true" />
+                    <h:panelGrid columns="3" style="border: ">
+                        <h:inputText  id="precio" value="#{productoController.busqueda}" title="Busqueda" />
+                        <h:selectOneMenu  value="#{productoController.opcion}">
+                            <f:selectItem itemValue="id" itemLabel="Id producto" />
+                            <f:selectItem itemValue="marca" itemLabel="Marca" />
+                            <f:selectItem itemValue="precio" itemLabel="Precio" />
+                            <f:selectItem itemValue="estado" itemLabel="Estado" />
+                        </h:selectOneMenu>
+                        <p:commandButton value="Buscar" update="busqueda messages" action="#{productoController.buscar}"  />   
+
+                    </h:panelGrid>
+                    
                     <p:dataTable id="busqueda" value="#{productoController.items}" 
                                  var="item" 
                                  selectionMode="single"
                                  selection="#{productoController.selectedProducto}"
-                                 rowKey="#{item.idProducto}"
-                                 style="border:solid 1px">
-                        <p:column sortBy="#{item.idProducto}">
+                                 rowKey="#{item.idProducto}">
+                        <p:column style="width:35px" sortBy="#{item.idProducto}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_idProducto}"/>
+                                <h:outputText value="Id"/>
                             </f:facet>
                             <h:outputText value="#{item.idProducto}"/>
                         </p:column>
@@ -86,6 +91,9 @@
                             <p:commandButton icon="ui-icon-minusthick" update="busqueda" action="#{productoController.destroy}" />
                         </p:column>
                     </p:dataTable>
+                    <h:outputText value="#{productoController.pagination.pageFirstItem + 1}..#{productoController.pagination.pageLastItem + 1}/#{productoController.pagination.itemsCount}"/>&nbsp;
+                    <p:commandButton action="#{productoController.previous}" value="#{bundle.Previous} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <p:commandButton action="#{productoController.next}" value="#{bundle.Next} #{productoController.pagination.pageSize}" rendered="#{productoController.pagination.hasNextPage}"/>&nbsp;
                 </h:panelGroup>
 <!--                <h:form id="ArchivoListForm">
                 <p:fileUpload id="subirArchivo"  mode="advanced" dragDropSupport="false" 

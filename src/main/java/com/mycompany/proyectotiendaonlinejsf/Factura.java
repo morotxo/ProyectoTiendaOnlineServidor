@@ -118,7 +118,7 @@ public class Factura implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.proyectotiendaonlinejsf.Factura[ idFactura=" + idFactura + " ]";
+        return idFactura+" ";
     }
     
 }

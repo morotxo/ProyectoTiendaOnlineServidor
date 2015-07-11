@@ -6,6 +6,8 @@
 package service;
 
 import com.mycompany.proyectotiendaonlinejsf.Cliente;
+import controller.ClienteController;
+import static java.lang.System.out;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,7 +30,6 @@ import javax.ws.rs.Produces;
 public class ClienteFacadeREST extends AbstractFacade<Cliente> {
     @PersistenceContext(unitName = "com.mycompany_ProyectoTiendaOnlineJSF_war_1.0-SNAPSHOTPU")
     private EntityManager em;
-
     public ClienteFacadeREST() {
         super(Cliente.class);
     }

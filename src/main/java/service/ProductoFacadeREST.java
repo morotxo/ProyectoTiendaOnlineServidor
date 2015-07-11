@@ -6,6 +6,8 @@
 package service;
 
 import com.mycompany.proyectotiendaonlinejsf.Producto;
+import controller.ClienteController;
+import controller.ProductoController;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,7 +30,6 @@ import javax.ws.rs.Produces;
 public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @PersistenceContext(unitName = "com.mycompany_ProyectoTiendaOnlineJSF_war_1.0-SNAPSHOTPU")
     private EntityManager em;
-
     public ProductoFacadeREST() {
         super(Producto.class);
     }
@@ -37,7 +38,9 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
     @Override
     @Consumes({"application/xml", "application/json"})
     public void create(Producto entity) {
-        super.create(entity);
+        System.out.println("Creando");
+        
+//        super.create(entity);
     }
 
     @PUT

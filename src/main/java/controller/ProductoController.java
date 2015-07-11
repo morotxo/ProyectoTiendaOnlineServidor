@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -33,7 +34,11 @@ public class ProductoController implements Serializable {
     @EJB
     private facade.ProductoFacade ejbFacade;
     private FileUpload fu;
+    private Double p = null;
+    private Character b;
+    private Integer idpedido;
     private String busqueda = "";
+    private String opcion = "";
     private DataModel items = null;
     private List<Imagen> listaimagenes;
     private Producto selectedProducto;
@@ -61,18 +66,74 @@ public class ProductoController implements Serializable {
             };
 
         }else{
-            pagination = new PaginationHelper(10) {
-
-            @Override
-            public int getItemsCount() {
-                return getFacade().count();
+            switch(opcion){
+                case "marca":
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyMarca(getBusqueda()));
+                        }
+                    };
+                    break;
+                case "id":
+                    try{
+                        idpedido=Integer.valueOf(getBusqueda());
+                    }catch(Exception ex){
+                        FacesMessage message = new FacesMessage("El valor del id es incorrecto");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                    }
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyId(idpedido));
+                        }
+                    };
+                    break;
+                case "precio":
+                    try{
+                        p=Double.valueOf(getBusqueda());
+                    }catch(Exception ex){
+                        FacesMessage message = new FacesMessage("El valor de precio es incorrecto");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                    }
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyPrecio(p));
+                        }
+                    };
+                    break;
+                    
+                case "estado":
+                    if (getBusqueda().trim().toLowerCase().equals("disponible"))
+                        b='D';
+                    if (getBusqueda().trim().toLowerCase().equals("no disponible"))
+                        b='N';
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyEstado(b));
+                        }
+                    };
+                    break;
             }
-
-            @Override
-            public DataModel createPageDataModel() {
-                return new ListDataModel(getFacade().findbyMarca(getBusqueda()));
-            }
-        };
+            
         }
         
     }
@@ -282,6 +343,14 @@ public class ProductoController implements Serializable {
 
     public void setFu(FileUpload fu) {
         this.fu = fu;
+    }
+
+    public String getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(String opcion) {
+        this.opcion = opcion;
     }
 
     @FacesConverter(forClass = Producto.class)

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -17,17 +18,20 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_idPedido}" for="idPedido" />
                     <h:inputText id="idPedido" value="#{pedidoController.selected.idPedido}" title="#{bundle.CreatePedidoTitle_idPedido}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_idPedido}"/>
-                    <h:outputLabel value="#{bundle.CreatePedidoLabel_fecha}" for="fecha" />
-                    <h:inputText id="fecha" value="#{pedidoController.selected.fecha}" title="#{bundle.CreatePedidoTitle_fecha}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_formapago}" for="formapago" />
-                    <h:inputText id="formapago" value="#{pedidoController.selected.formapago}" title="#{bundle.CreatePedidoTitle_formapago}" />
+                     <h:selectOneMenu id="formapago" value="#{pedidoController.selected.formapago}">
+                            <f:selectItem itemValue="credito" itemLabel="A credito" />
+                            <f:selectItem itemValue="efectivo" itemLabel="En efectivo" />
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_estado}" for="estado" />
-                    <h:inputText id="estado" value="#{pedidoController.selected.estado}" title="#{bundle.CreatePedidoTitle_estado}" required="true" requiredMessage="#{bundle.CreatePedidoRequiredMessage_estado}"/>
+                    <h:selectOneMenu id="estado" value="#{pedidoController.selected.estado}">
+                        <f:selectItem itemValue="A" itemLabel="A despachar" />
+                        <f:selectItem itemValue="D" itemLabel="Despachado" />
+                        <f:selectItem itemValue="C" itemLabel="Cancelado" />
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_idcliente}" for="idcliente" />
                     <h:selectOneMenu id="idcliente" value="#{pedidoController.selected.idcliente}" title="#{bundle.CreatePedidoTitle_idcliente}" >
-                        <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"/>
+                        <f:selectItems  value="#{clienteController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreatePedidoLabel_idFactura}" for="idFactura" />
                     <h:selectOneMenu id="idFactura" value="#{pedidoController.selected.idFactura}" title="#{bundle.CreatePedidoTitle_idFactura}" >

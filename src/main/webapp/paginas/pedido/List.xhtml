@@ -26,7 +26,7 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListPedidoEmpty}" rendered="#{pedidoController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{pedidoController.items.rowCount > 0}">
+                <h:panelGroup >
                     <h:outputText value="#{pedidoController.pagination.pageFirstItem + 1}..#{pedidoController.pagination.pageLastItem + 1}/#{pedidoController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{pedidoController.previous}" value="#{bundle.Previous} #{pedidoController.pagination.pageSize}" rendered="#{pedidoController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{pedidoController.next}" value="#{bundle.Next} #{pedidoController.pagination.pageSize}" rendered="#{pedidoController.pagination.hasNextPage}"/>&nbsp;

@@ -19,66 +19,77 @@
             </h:form>
         </ui:define>
         <ui:define name="body">
+            <p:growl id="messages" showDetail="true" />
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListClienteEmpty}" rendered="#{clienteController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{clienteController.items.rowCount > 0}">
-                    <h:outputText value="#{clienteController.pagination.pageFirstItem + 1}..#{clienteController.pagination.pageLastItem + 1}/#{clienteController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{clienteController.previous}" value="#{bundle.Previous} #{clienteController.pagination.pageSize}" rendered="#{clienteController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{clienteController.next}" value="#{bundle.Next} #{clienteController.pagination.pageSize}" rendered="#{clienteController.pagination.hasNextPage}"/>&nbsp;
-                    <p:dataTable value="#{clienteController.items}" var="item" 
-                                 rowKey="#{item.idCliente}">>
-                        <p:column>
+                <h:panelGroup >
+                    <p:growl id="messages" showDetail="true" />
+                    <h:inputText  id="precio" value="#{clienteController.busqueda}" title="Busqueda" />
+                    <h:selectOneMenu  value="#{clienteController.opcion}">
+                        <f:selectItem itemValue="id" itemLabel="Id Cliente" />
+                        <f:selectItem itemValue="nombre" itemLabel="Nombre" />
+                        <f:selectItem itemValue="apellido" itemLabel="Apellido" />
+                        <f:selectItem itemValue="email" itemLabel="Email" />
+                    </h:selectOneMenu>
+                    <p:commandButton value="Buscar" update="busqueda messages" action="#{clienteController.buscar}"  />   
+                    
+                    <p:dataTable id="busqueda" value="#{clienteController.items}" 
+                                 var="item" 
+                                 rowKey="#{item.idCliente}"
+                                 selectionMode="single">
+                        <p:column style="width:35px" sortBy="#{item.idCliente}">
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
                             </f:facet>
                             <h:outputText value="#{item.idCliente}"/>
                         </p:column>
-                        <p:column style="text-align: center; width:205px;">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_email}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.email}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_telefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.telefono}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_ciudad}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ciudad}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_pais}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pais}"/>
-                        </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.nombre}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.apellido}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_apellido}"/>
                             </f:facet>
                             <h:outputText value="#{item.apellido}"/>
                         </p:column>
+                        <p:column style="text-align: center; width:205px;" sortBy="#{item.email}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.telefono}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_telefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefono}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.ciudad}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_ciudad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ciudad}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.pais}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_pais}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pais}"/>
+                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_password}"/>
                             </f:facet>
                             <h:outputText value="#{item.password}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width:35px" sortBy="#{item.estado}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_estado}"/>
                             </f:facet>
@@ -90,9 +101,13 @@
                             </f:facet>
                             <p:commandButton icon="ui-icon-zoomin" action="#{clienteController.prepareView}"/>
                             <p:commandButton icon="ui-icon-pencil" action="#{clienteController.prepareEdit}"/>
-                            <p:commandButton icon="ui-icon-minus" action="#{clienteController.destroy}"/>
+                            <p:commandButton update="busqueda" icon="ui-icon-minus" action="#{clienteController.destroy}"/>
                         </p:column>
                     </p:dataTable>
+                    <h:outputText value="#{clienteController.pagination.pageFirstItem + 1}..#{clienteController.pagination.pageLastItem + 1}/#{clienteController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{clienteController.previous}" value="#{bundle.Previous} #{clienteController.pagination.pageSize}" rendered="#{clienteController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{clienteController.next}" value="#{bundle.Next} #{clienteController.pagination.pageSize}" rendered="#{clienteController.pagination.hasNextPage}"/>&nbsp;
+                    
                 </h:panelGroup>
                 <br />
                 <br />

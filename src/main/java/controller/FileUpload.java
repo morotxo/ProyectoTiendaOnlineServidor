@@ -26,8 +26,6 @@ public class FileUpload {
     
     public void handleFileUpload(FileUploadEvent event) {
         setNombreImagen(event.getFile().getFileName());
-        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
         try {
            
             ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance()
@@ -53,8 +51,13 @@ public class FileUpload {
             out.flush();
             out.close();
             saveImage(event,path,name);
+            FacesMessage message = new FacesMessage("Se ha subido", event.getFile().getFileName());
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (IOException e) {
+            FacesMessage message = new FacesMessage("Ha ocurrido un error subiendo la imagen "+e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, message);
             e.printStackTrace();
+            
         }
     }
     

@@ -8,6 +8,9 @@ import controller.util.PaginationHelper;
 import facade.PedidoFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -92,6 +95,10 @@ public class PedidoController implements Serializable {
 
     public String create() {
         try {
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            Date date = new Date();
+            String fecha = dateFormat.format(date);
+            current.setFecha(date);
             items=null;
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PedidoCreated"));

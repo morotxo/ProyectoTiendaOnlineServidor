@@ -41,7 +41,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByPassword", query = "SELECT c FROM Cliente c WHERE c.password = :password"),
     @NamedQuery(name = "Cliente.findByEstado", query = "SELECT c FROM Cliente c WHERE c.estado = :estado")})
 public class Cliente implements Serializable {
-     public static final String findbyidcliente="Cliente.findByIdCliente";
+    public static final String findbyidcliente="Cliente.findByIdCliente";
+    public static final String findbyemail="Cliente.findByEmail";
+    public static final String findbytelefono="Cliente.findByTelefono";
+    public static final String findbyciudad="Cliente.findByCiudad";
+    public static final String findbypais="Cliente.findByPais";
+    public static final String findbynombre="Cliente.findByNombre";
+    public static final String findbyapellido="Cliente.findByApellido";
+    public static final String findbyestado="Cliente.findByEstado";
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,8 +58,8 @@ public class Cliente implements Serializable {
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(nullable = false, length = 45)
+    @Size(min = 1, max = 500)
+    @Column(nullable = false, length = 500)
     private String email;
     @Basic(optional = false)
     @NotNull
@@ -213,7 +220,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.proyectotiendaonlinejsf.Cliente[ idCliente=" + idCliente + " ]";
+        return idCliente+" "+nombre+" "+apellido;
     }
     
 }

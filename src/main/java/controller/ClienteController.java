@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -26,18 +27,156 @@ public class ClienteController implements Serializable {
     private DataModel items = null;
     @EJB
     private facade.ClienteFacade ejbFacade;
+    private String busqueda="";
+    private String opcion="";
+    private Character ca;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private Integer idcliente;
 
     public ClienteController() {
     }
 
+    public void setSelected(Cliente c) {
+        this.current=c;
+    }
     public Cliente getSelected() {
         if (current == null) {
             current = new Cliente();
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public void buscar(){
+        setBusqueda(getBusqueda().trim());
+        items=null;
+        if(getBusqueda().equals("")){
+            pagination = new PaginationHelper(10) {
+
+                @Override
+                public int getItemsCount() {
+                    return getFacade().count();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                }
+            };
+        }else{
+            switch(opcion){
+                case "ciudad":
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyCiudad(getBusqueda()));
+                        }
+                    };
+                    break;
+                case "apellido":
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyApellido(getBusqueda()));
+                        }
+                    };
+                    break;
+                case "email":
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyEmail(getBusqueda()));
+                        }
+                    };
+                    break;
+                case "estado":
+                    
+                    if (getBusqueda().toLowerCase().equals("activo")){
+                        ca='A';
+                    }else if (getBusqueda().trim().toLowerCase().equals("no activo")){
+                        ca='I';
+                    }
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyEstado(ca));
+                        }
+                    };
+                    break;
+                case "idcliente":
+                    try{
+                        idcliente=Integer.valueOf(getBusqueda());
+                    }catch(Exception ex){
+                        FacesMessage message = new FacesMessage("El valor del id es incorrecto");
+                        FacesContext.getCurrentInstance().addMessage(null, message);
+                    }
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyIdCliente(idcliente));
+                        }
+                    };
+                    break;
+                case "nombre":
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyNombre(getBusqueda()));
+                        }
+                    };
+                    break;
+                case "pais":
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyPais(getBusqueda()));
+                        }
+                    };
+                    break;
+                case "telefono":
+                    pagination = new PaginationHelper(10) {
+                        @Override
+                        public int getItemsCount() {
+                            return getFacade().count();
+                        }
+                        @Override
+                        public DataModel createPageDataModel() {
+                            return new ListDataModel(getFacade().findbyTelefono(getBusqueda()));
+                        }
+                    };
+                    break;
+            }
+        }
+        
     }
 
     private ClienteFacade getFacade() {
@@ -134,6 +273,7 @@ public class ClienteController implements Serializable {
             getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ClienteDeleted"));
         } catch (Exception e) {
+            
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
@@ -190,6 +330,22 @@ public class ClienteController implements Serializable {
 
     public Cliente getCliente(java.lang.Integer id) {
         return ejbFacade.find(id);
+    }
+
+    public String getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(String busqueda) {
+        this.busqueda = busqueda;
+    }
+
+    public String getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(String opcion) {
+        this.opcion = opcion;
     }
 
     @FacesConverter(forClass = Cliente.class)

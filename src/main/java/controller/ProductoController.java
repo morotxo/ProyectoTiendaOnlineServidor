@@ -48,6 +48,7 @@ public class ProductoController implements Serializable {
 
     public ProductoController() {
         fu=new FileUpload();
+        current = new Producto();
     }
     public void buscar() {
         items = null;

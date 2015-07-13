@@ -13,6 +13,11 @@
         <ui:define name="left">
             <h:form>
                 <h:link outcome="/index" value="#{bundle.ListProductoIndexLink}"/> 
+                <p:lightBox iframe="true" width="400px" height="350px" id="lighbox3">
+                        <h:outputLink  value="Create.xhtml" title="Agregar Producto">
+                            <h:outputText value="Agregar Producto" />
+                        </h:outputLink>
+                </p:lightBox>
                 <h:commandLink action="#{productoController.prepareCreate}" value="#{bundle.ListProductoCreateLink}"/>
             </h:form>
         </ui:define>

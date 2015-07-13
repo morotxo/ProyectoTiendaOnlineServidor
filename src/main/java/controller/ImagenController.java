@@ -1,5 +1,6 @@
 package controller;
 
+import com.mycompany.proyectotiendaonlinejsf.Cambios;
 import com.mycompany.proyectotiendaonlinejsf.Imagen;
 import com.mycompany.proyectotiendaonlinejsf.Producto;
 import controller.util.JsfUtil;
@@ -7,7 +8,6 @@ import controller.util.PaginationHelper;
 import facade.ImagenFacade;
 
 import java.io.Serializable;
-import static java.lang.System.out;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -111,6 +111,7 @@ public class ImagenController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
+            Cambios.ins().addNI(current.getIdimagen());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ImagenCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -128,6 +129,7 @@ public class ImagenController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
+            Cambios.ins().addUI(current.getIdimagen());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ImagenUpdated"));
             return "View";
         } catch (Exception e) {
@@ -219,6 +221,10 @@ public class ImagenController implements Serializable {
 
     public Imagen getImagen(java.lang.Integer id) {
         return ejbFacade.find(id);
+    }
+
+    public facade.ImagenFacade getEjbFacade() {
+        return ejbFacade;
     }
 
     @FacesConverter(forClass = Imagen.class)

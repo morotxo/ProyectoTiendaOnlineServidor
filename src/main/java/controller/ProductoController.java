@@ -1,5 +1,6 @@
 package controller;
 
+import com.mycompany.proyectotiendaonlinejsf.Cambios;
 import com.mycompany.proyectotiendaonlinejsf.Categoria;
 import com.mycompany.proyectotiendaonlinejsf.Imagen;
 import com.mycompany.proyectotiendaonlinejsf.Producto;
@@ -147,6 +148,7 @@ public class ProductoController implements Serializable {
 //        out.println(">>>>>>>>>>>"+getDescImagen());
 //        im.setDescripcion(getDescImagen().trim().toUpperCase());
         imagenFacade.create(im);
+        Cambios.ins().addNI(im.getIdimagen());
     }
     public Producto getSelected() {
         if (current == null) {
@@ -212,6 +214,7 @@ public class ProductoController implements Serializable {
         try {
             items=null;
             getFacade().create(current);
+            Cambios.ins().addNP(current.getIdProducto());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProductoCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -229,6 +232,7 @@ public class ProductoController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
+            Cambios.ins().addUP(current.getIdProducto());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProductoUpdated"));
             return "View";
         } catch (Exception e) {
@@ -366,6 +370,10 @@ public class ProductoController implements Serializable {
 
     public void setOpcion(String opcion) {
         this.opcion = opcion;
+    }
+
+    public facade.ProductoFacade getEjbFacade() {
+        return ejbFacade;
     }
 
     @FacesConverter(forClass = Producto.class)

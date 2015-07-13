@@ -71,6 +71,8 @@ public class ProductoFacadeREST extends AbstractFacade<Producto> {
         return super.findAll();
     }
 
+    
+
     @GET
     @Path("{from}/{to}")
     @Produces({"application/xml", "application/json"})

@@ -14,6 +14,7 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
+                
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateProductoLabel_idProducto}" for="idProducto" />
                     <h:inputText id="idProducto" value="#{productoController.selected.idProducto}" title="#{bundle.CreateProductoTitle_idProducto}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_idProducto}"/>
@@ -26,20 +27,17 @@
                     <h:outputLabel value="#{bundle.CreateProductoLabel_stock}" for="stock" />
                     <h:inputText id="stock" value="#{productoController.selected.stock}" title="#{bundle.CreateProductoTitle_stock}" />
                     <h:outputLabel value="#{bundle.CreateProductoLabel_estado}" for="estado" />
-                    <h:inputText id="estado" value="#{productoController.selected.estado}" title="#{bundle.CreateProductoTitle_estado}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_estado}"/>
+                    <h:selectOneMenu  value="#{productoController.selected.estado}">
+-                        <f:selectItem itemValue="A" itemLabel="Activo" />
+-                        <f:selectItem itemValue="D" itemLabel="Desactivado" />
+-                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateProductoLabel_idCategoria}" for="idCategoria" />
-                    <h:selectOneMenu id="idCategoria" value="#{productoController.selected.idCategoria}" title="#{bundle.CreateProductoTitle_idCategoria}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_idCategoria}">
+                    <h:selectOneMenu id="idCategoria" value="#{productoController.selected.idCategoria}" >
                         <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{productoController.create}" value="#{bundle.CreateProductoSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{productoController.prepareList}" value="#{bundle.CreateProductoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateProductoIndexLink}"/>
+                <h:commandButton action="#{productoController.create}" value="#{bundle.CreateProductoSaveLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

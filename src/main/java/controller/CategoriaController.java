@@ -30,6 +30,7 @@ public class CategoriaController implements Serializable {
     private int selectedItemIndex;
 
     public CategoriaController() {
+        current = new Categoria();
     }
 
     public Categoria getSelected() {
@@ -42,6 +43,9 @@ public class CategoriaController implements Serializable {
 
     private CategoriaFacade getFacade() {
         return ejbFacade;
+    }
+    public void reload(){
+        prepareList();
     }
 
     public PaginationHelper getPagination() {

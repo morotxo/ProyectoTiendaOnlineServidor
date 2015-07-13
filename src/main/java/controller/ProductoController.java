@@ -198,7 +198,7 @@ public class ProductoController implements Serializable {
     public String prepareCreate() {
         current = new Producto();
         selectedItemIndex = -1;
-        return "Create";
+        return "Create.xhtml";
     }
     
     public void prepareCreate1(){

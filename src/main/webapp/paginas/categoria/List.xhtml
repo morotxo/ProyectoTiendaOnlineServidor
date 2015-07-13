@@ -11,7 +11,12 @@
         </ui:define>
         <ui:define name="left">
             <h:form>
-            <h:commandLink action="#{categoriaController.prepareCreate}" value="#{bundle.ListCategoriaCreateLink}"/>                
+            <h:commandLink action="#{categoriaController.prepareCreate}" value="#{bundle.ListCategoriaCreateLink}"/>
+            <p:lightBox iframe="true" width="400px" height="150px" id="lighbox3">
+                        <h:outputLink  value="Create.xhtml" title="Agregar Categoria">
+                            <h:outputText value="Agregar Categoria" />
+                        </h:outputLink>
+            </p:lightBox>
             </h:form>
         </ui:define>
         <ui:define name="body">
@@ -27,6 +32,9 @@
                     <p:dataTable  id="busqueda"  value="#{categoriaController.items}" var="item"
                                  rowKey="item.idcategoria"
                                  selectionMode="Single">
+                        <f:facet name="header">
+                            <p:commandButton update="busqueda" icon="ui-icon-arrowrefresh-1-w" action="#{categoriaController.reload}"/>
+                        </f:facet>
                         <p:column style="width:100px">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCategoriaTitle_idcategoria}"/>
@@ -48,6 +56,7 @@
                             <p:commandButton icon="ui-icon-minusthick" update="busqueda" action="#{categoriaController.destroy}" />
                         </p:column>
                     </p:dataTable>
+                    
                 </h:panelGroup>
             </h:form>
         </ui:define>

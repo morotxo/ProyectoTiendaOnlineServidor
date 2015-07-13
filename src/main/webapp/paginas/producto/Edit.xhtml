@@ -6,14 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="top">
-            
-        </ui:define>
-        <ui:define name="left">
-            <h:form>
-                <h:commandLink action="#{productoController.update}" value="#{bundle.EditProductoSaveLink}"/>
-                <h:link outcome="View" value="#{bundle.EditProductoViewLink}"/>
-            </h:form>
+        <ui:define name="title">
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -38,6 +31,9 @@
                         <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
+                <br />
+                <h:commandButton action="#{productoController.update}" value="#{bundle.EditProductoSaveLink}"/>
+                <br />
             </h:form>
         </ui:define>
     </ui:composition>

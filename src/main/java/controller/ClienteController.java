@@ -248,10 +248,16 @@ public class ClienteController implements Serializable {
 
     public String destroy() {
         current = (Cliente) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
+        if (current.getEstado().equals('D')){
+            current.setEstado('A');
+        }else{
+            current.setEstado('D');
+        }
+        update();
+//        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+//        performDestroy();
+//        recreatePagination();
+//        recreateModel();
         return "List";
     }
 

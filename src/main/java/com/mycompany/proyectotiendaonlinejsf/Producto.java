@@ -183,7 +183,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto[ idProducto=" + idProducto + " ]"+getDescripcion()+getMarca()+getEstado()+getIdProducto();
+        return "Producto ID Producto=" + idProducto + " "+getMarca();
     }
     
 }

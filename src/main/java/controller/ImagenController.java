@@ -45,6 +45,9 @@ public class ImagenController implements Serializable {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
+    public void reload(){
+        prepareList();
+    }
      
     public void upload() {
         if(file != null) {
@@ -123,7 +126,6 @@ public class ImagenController implements Serializable {
     }
 
     public String update() {
-        out.println("descripcion  "+current.getDescripcion());
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ImagenUpdated"));

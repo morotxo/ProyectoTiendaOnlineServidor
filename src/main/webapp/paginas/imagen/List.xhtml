@@ -27,6 +27,9 @@
                     <h:commandLink action="#{imagenController.next}" value="#{bundle.Next} #{imagenController.pagination.pageSize}" rendered="#{imagenController.pagination.hasNextPage}"/>&nbsp;
                     <p:dataTable id="busqueda" value="#{imagenController.items}" var="item" 
                                  rowKey="#{item.idimagen}">
+                        <f:facet name="header">
+                            <p:commandButton update="busqueda" icon="ui-icon-arrowrefresh-1-w" action="#{imagenController.reload}"/>
+                        </f:facet>
                         <p:column sortBy="#{item.idimagen}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListImagenTitle_idimagen}"/>

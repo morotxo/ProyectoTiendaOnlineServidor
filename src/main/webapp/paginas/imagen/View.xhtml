@@ -24,19 +24,8 @@
                     <h:outputText value="#{bundle.ViewImagenLabel_idproducto}"/>
                     <h:outputText value="#{imagenController.selected.idproducto}" title="#{bundle.ViewImagenTitle_idproducto}"/>
                 </h:panelGrid>
-                <br />
-                <h:commandLink action="#{imagenController.destroyAndView}" value="#{bundle.ViewImagenDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewImagenEditLink}"/>
-                <br />
-                <h:commandLink action="#{imagenController.prepareCreate}" value="#{bundle.ViewImagenCreateLink}" />
-                <br />
-                <h:commandLink action="#{imagenController.prepareList}" value="#{bundle.ViewImagenShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewImagenIndexLink}"/>
-
+                <h:commandButton action="#{imagenController.destroyAndView}" value="#{bundle.ViewImagenDestroyLink}"/>
+                <h:button outcome="Edit" value="#{bundle.ViewImagenEditLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

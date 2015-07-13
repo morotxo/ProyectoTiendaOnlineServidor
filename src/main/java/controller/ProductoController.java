@@ -119,9 +119,9 @@ public class ProductoController implements Serializable {
                     
                 case "estado":
                     if (getBusqueda().trim().toLowerCase().equals("disponible"))
-                        b='D';
+                        b='A';
                     if (getBusqueda().trim().toLowerCase().equals("no disponible"))
-                        b='N';
+                        b='D';
                     pagination = new PaginationHelper(10) {
                         @Override
                         public int getItemsCount() {

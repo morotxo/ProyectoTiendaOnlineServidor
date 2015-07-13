@@ -7,10 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="left">
-            <h:form>
-            <h:commandLink action="#{imagenController.update}" value="#{bundle.EditImagenSaveLink}"/>
-            <h:commandLink action="#{imagenController.prepareList}" value="Lista Imagenes" immediate="true"/>
-            </h:form>
+            <h:outputText value="#{bundle.EditImagenTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -29,7 +26,10 @@
                         <f:selectItems value="#{productoController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
-                
+                <br />
+                <h:commandButton action="#{imagenController.update}" value="#{bundle.EditImagenSaveLink}"/>
+                <br />
+                <br />
             </h:form>
         </ui:define>
     </ui:composition>

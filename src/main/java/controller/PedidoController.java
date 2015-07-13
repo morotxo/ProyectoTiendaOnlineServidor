@@ -2,6 +2,7 @@ package controller;
 
 import com.mycompany.proyectotiendaonlinejsf.Cliente;
 import com.mycompany.proyectotiendaonlinejsf.Detalle;
+import com.mycompany.proyectotiendaonlinejsf.Factura;
 import com.mycompany.proyectotiendaonlinejsf.Pedido;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
@@ -36,7 +37,10 @@ public class PedidoController implements Serializable {
     private facade.DetalleFacade ejBDetalle;
     @EJB
     private facade.ClienteFacade ejbCliente;
+    @EJB
+    private facade.FacturaFacade ejbFactura;
     private Cliente cliente=null;
+    private Factura factura=null;
     private List<Detalle> listadetalles=null; 
     private PaginationHelper pagination;
     private int selectedItemIndex;
@@ -83,6 +87,7 @@ public class PedidoController implements Serializable {
         current = (Pedido) getItems().getRowData();
         listadetalles=ejBDetalle.findbyId(current);
         cliente= ejbCliente.find(current.getIdcliente().getIdCliente());
+//        factura=ejbFactura.find(current.getIdFactura().getIdFactura());
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -225,6 +230,14 @@ public class PedidoController implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
     }
 
     @FacesConverter(forClass = Pedido.class)

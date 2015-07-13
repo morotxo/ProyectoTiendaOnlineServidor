@@ -138,6 +138,13 @@ public class ProductoController implements Serializable {
         
     }
     public void save(Imagen im){
+        int count = imagenFacade.findbyID(im.getIdproducto()).size();
+        if (count==0)
+            im.setDescripcion("BUSQUEDA");
+        else
+            im.setDescripcion("DETALLE");
+//        out.println(">>>>>>>>>>>"+getDescImagen());
+//        im.setDescripcion(getDescImagen().trim().toUpperCase());
         imagenFacade.create(im);
     }
     public Producto getSelected() {
@@ -200,6 +207,7 @@ public class ProductoController implements Serializable {
     }
 
     public String create() {
+        out.print(current);
         try {
             items=null;
             getFacade().create(current);
@@ -230,10 +238,16 @@ public class ProductoController implements Serializable {
 
     public String destroy() {
         current = (Producto) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
+        if (current.getEstado().equals('D')){
+            current.setEstado('A');
+        }else{
+            current.setEstado('D');
+        }
+        update();
+//        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+//        performDestroy();
+//        recreatePagination();
+//        recreateModel();
         return "List";
     }
 

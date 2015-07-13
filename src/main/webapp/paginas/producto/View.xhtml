@@ -42,10 +42,11 @@
                               multiple="true" update="messages galeria" sizeLimit="1000000" fileLimit="10" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
                               />
                 <p:growl id="messages" showDetail="true" />
-                <p:galleria  id="galeria" value="#{productoController.listaimagenes}" var="image" panelWidth="300" panelHeight="200" showCaption="false">
-                    <p:graphicImage value="#{image.url}"   height="200" title="#{image.url}"/>
+                <p:galleria  id="galeria" value="#{productoController.listaimagenes}" showCaption="true" var="image" panelWidth="700" panelHeight="300" >
+                    <p:graphicImage value="#{image.url}"   height="300" title="#{image.descripcion}"/>
                 </p:galleria>
-                </h:form>>
+                </h:form>
+                
                 <br />
 
             </h:form>

@@ -9,6 +9,12 @@
         <ui:define name="top">
             
         </ui:define>
+        <ui:define name="left">
+            <h:form>
+                <h:commandLink action="#{productoController.update}" value="#{bundle.EditProductoSaveLink}"/>
+                <h:link outcome="View" value="#{bundle.EditProductoViewLink}"/>
+            </h:form>
+        </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -32,15 +38,6 @@
                         <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
-                <h:commandLink action="#{productoController.update}" value="#{bundle.EditProductoSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditProductoViewLink}"/>
-                <br />
-                <h:commandLink action="#{productoController.prepareList}" value="#{bundle.EditProductoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditProductoIndexLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

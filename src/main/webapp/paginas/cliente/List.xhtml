@@ -33,6 +33,10 @@
                         <f:selectItem itemValue="nombre" itemLabel="Nombre" />
                         <f:selectItem itemValue="apellido" itemLabel="Apellido" />
                         <f:selectItem itemValue="email" itemLabel="Email" />
+                        <f:selectItem itemValue="ciudad" itemLabel="Ciudad" />
+                        <f:selectItem itemValue="pais" itemLabel="Pais" />
+                        <f:selectItem itemValue="telefono" itemLabel="Telefono" />
+                        <f:selectItem itemValue="estado" itemLabel="Estado" />
                     </h:selectOneMenu>
                     <p:commandButton value="Buscar" update="busqueda messages" action="#{clienteController.buscar}"  />   
                     
@@ -83,19 +87,14 @@
                             <h:outputText value="#{item.pais}"/>
                         </p:column>
                         
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_password}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.password}"/>
-                        </p:column>
+                       
                         <p:column style="width:35px" sortBy="#{item.estado}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_estado}"/>
                             </f:facet>
                             <h:outputText value="#{item.estado}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width:100px">
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>

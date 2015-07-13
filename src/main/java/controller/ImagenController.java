@@ -7,6 +7,7 @@ import controller.util.PaginationHelper;
 import facade.ImagenFacade;
 
 import java.io.Serializable;
+import static java.lang.System.out;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -122,6 +123,7 @@ public class ImagenController implements Serializable {
     }
 
     public String update() {
+        out.println("descripcion  "+current.getDescripcion());
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ImagenUpdated"));

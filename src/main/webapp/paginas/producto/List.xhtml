@@ -12,7 +12,7 @@
         
         <ui:define name="left">
             <h:form>
-                <h:link outcome="/index" value="#{bundle.ListProductoIndexLink}"/>
+                <h:link outcome="/index" value="#{bundle.ListProductoIndexLink}"/> 
                 <h:commandLink action="#{productoController.prepareCreate}" value="#{bundle.ListProductoCreateLink}"/>
             </h:form>
         </ui:define>
@@ -30,9 +30,9 @@
                             <f:selectItem itemValue="marca" itemLabel="Marca" />
                             <f:selectItem itemValue="precio" itemLabel="Precio" />
                             <f:selectItem itemValue="estado" itemLabel="Estado" />
+                            
                         </h:selectOneMenu>
                         <p:commandButton value="Buscar" update="busqueda messages" action="#{productoController.buscar}"  />   
-
                     </h:panelGrid>
                     
                     <p:dataTable id="busqueda" value="#{productoController.items}" 
@@ -40,13 +40,13 @@
                                  selectionMode="single"
                                  selection="#{productoController.selectedProducto}"
                                  rowKey="#{item.idProducto}">
-                        <p:column style="width:35px" sortBy="#{item.idProducto}">
+                        <p:column  filterBy="#{item.idProducto}" filterMatchMode="contains"  style="width:35px" sortBy="#{item.idProducto}">
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
                             </f:facet>
                             <h:outputText value="#{item.idProducto}"/>
                         </p:column>
-                        <p:column  style="text-align: center; width:405px;">
+                        <p:column filterBy="#{item.descripcion}" filterMatchMode="contains" style="text-align: center; width:405px;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_descripcion}"/>
                             </f:facet>
@@ -82,7 +82,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idCategoria}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width:100px">
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>

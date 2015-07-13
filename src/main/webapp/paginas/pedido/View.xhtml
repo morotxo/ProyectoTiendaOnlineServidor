@@ -56,6 +56,13 @@
                     <h:outputText  value="#{pedidoController.selected.idcliente}" title="#{bundle.ViewPedidoTitle_idcliente}"/>
                     <h:outputText value="#{bundle.ViewPedidoLabel_idFactura}"/>
                     <h:outputText  value="#{pedidoController.selected.idFactura}" title="#{bundle.ViewPedidoTitle_idFactura}"/>
+                    
+                    <h:outputText value="#{bundle.ViewFacturaLabel_idFactura}"/>
+                    <h:outputText value="#{pedidoController.factura.idFactura}" title="#{bundle.ViewFacturaTitle_idFactura}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_preciototal}"/>
+                    <h:outputText value="#{pedidoController.factura.preciototal}" title="#{bundle.ViewFacturaTitle_preciototal}"/>
+                    <h:outputText value="#{bundle.ViewFacturaLabel_estado}"/>
+                    <h:outputText value="#{pedidoController.factura.estado}" title="#{bundle.ViewFacturaTitle_estado}"/>                    
                 </h:panelGrid>
             </h:form>
             <h:form>

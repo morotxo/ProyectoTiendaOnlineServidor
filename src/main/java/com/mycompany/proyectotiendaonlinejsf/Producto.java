@@ -183,7 +183,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.proyectotiendaonlinejsf.Producto[ idProducto=" + idProducto + " ]";
+        return "Producto[ idProducto=" + idProducto + " ]"+getDescripcion()+getMarca()+getEstado()+getIdProducto();
     }
     
 }

@@ -16,29 +16,28 @@ import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean
-public class FileUpload {
+public class FileUpload{
     @EJB
     private facade.ImagenFacade imF;
     private ProductoController ins;
     private Producto current;
+    private String descImagen;
     private String nombreImagen;
-
     
+    public FileUpload(){
+    }
     public void handleFileUpload(FileUploadEvent event) {
+        out.println("DescImagen:::::::::"+getDescImagen());
         setNombreImagen(event.getFile().getFileName());
         try {
            
             ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance()
                     .getExternalContext().getContext();
-            out.print("::::"+ctx.getContextPath());
-            out.print("::::::"+System.getProperty("user.dir"));
             String path= "/media/david13mo/DARK 700/Universidad/6. Programacion Web/12. Trabajo Final/ProyectoTiendaOnlineJSF/src/main/webapp/resources/Imagenes/"+getCurrent().getIdProducto()+"/";
-            out.print("><<>< "+path);
             File targetFolder = new File(path);
             targetFolder.mkdir();
             String name=event.getFile().getFileName().trim().replace(' ', '_');
             name=name.replace('-','_');
-            out.println("Guardando en: "+targetFolder.getPath());
             InputStream inputStream = event.getFile().getInputstream();
             OutputStream out = new FileOutputStream(new File(targetFolder,name));
             int read = 0;
@@ -60,6 +59,7 @@ public class FileUpload {
             
         }
     }
+    
     
     public void saveImage(FileUploadEvent event, String path,String name){
         String m = String.valueOf(System.currentTimeMillis());
@@ -110,6 +110,15 @@ public class FileUpload {
     void setIns(ProductoController aThis) {
         this.ins=aThis;
     }
+
+    public String getDescImagen() {
+        return descImagen;
+    }
+
+    public void setDescImagen(String descImagen) {
+        this.descImagen = descImagen;
+    }
+
 
    
 }
